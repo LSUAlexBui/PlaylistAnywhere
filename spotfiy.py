@@ -46,15 +46,12 @@ def extract_artists_and_songs(json_data):
         print("No tracks/items found in playlist data.")
         return
     for item in json_data['tracks']['items']:
-        # Get the track info
         track = item.get('track')
         if not track:
             continue
-        # Get the song name
         name = track.get('name')
         if name:
             songName.append(name)
-        # Get the first artist name
         artists_list = track.get('artists')
         if artists_list and len(artists_list) > 0:
             artist_name = artists_list[0].get('name')
