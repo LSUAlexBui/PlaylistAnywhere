@@ -10,9 +10,7 @@ headers = {
     "Content-Type": "application/x-www-form-urlencoded"
 }
 data = {
-    "grant_type": "client_credentials",
-    "client_id": client_id,
-    "client_secret": client_secret
+    "grant_type": "client_credentials","client_id": client_id,"client_secret": client_secret
 }
 
 response = requests.post(auth_url, headers=headers, data=data)
