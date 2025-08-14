@@ -1,6 +1,6 @@
 import json
 import requests
-from clientKeys import client_id, client_secret
+from clientKeys import client_id, client_secret, redirect_uri, response_type
 
 spotifyurl = "https://api.spotify.com"
 
@@ -60,3 +60,8 @@ extract_artists_and_songs(json_data1)
 
 print("Artists:", artist)
 print("Songs:", songName)
+
+def login(client_id, response_type, redirect_uri):
+    login_url = f"https://accounts.spotify.com/authorize?client_id={client_id}&response_type={response_type}&redirect_uri={redirect_uri}"
+    return login_url
+print("Login URL:", login(client_id, response_type, redirect_uri))
