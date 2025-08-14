@@ -1,11 +1,9 @@
 import json
-#from pickle import GET
 import requests
+from clientKeys import client_id, client_secret
 
 spotifyurl = "https://api.spotify.com"
 
-client_id = "0d266fae9d834656bc19c86dabf686f8"
-client_secret = "f036bf3c228b4ce899a1d3e9089f85f2"
 
 auth_url = "https://accounts.spotify.com/api/token"
 headers = {
