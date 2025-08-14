@@ -1,5 +1,5 @@
 import json
-from pickle import GET
+#from pickle import GET
 import requests
 
 spotifyurl = "https://api.spotify.com"
@@ -24,7 +24,7 @@ headers = {
     "Authorization": authorization
 }
 
-playlist_url = "https://open.spotify.com/playlist/4TULtsF069BLZAT7KG09eO?si=40a30dc6a7b04087"
+playlist_url = "https://open.spotify.com/playlist/1sfIs6G2KpBwueBLVzEmWr?si=858b887bb6db41fc"
 remove = "https://open.spotify.com/playlist/"
 playlist_id = playlist_url.replace(remove, "")
 api_playlist_url = "https://api.spotify.com/v1/playlists/" + playlist_id
