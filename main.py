@@ -1,7 +1,7 @@
 import requests
+from flask import Flask, request, jsonify
 
-spotifyURL = ""
-soundcloudURL = ""
+@app.route("/")
 
 def main():
-
+    app = Flask(__name__)
