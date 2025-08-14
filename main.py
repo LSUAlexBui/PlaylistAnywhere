@@ -1,10 +1,9 @@
 import requests
+import YTMusic
+from flask import Flask, request, jsonify
 
 spotifyURL = "https://api.spotify.com."
-soundcloudURL = ""
 
 def main():
-    songName
-    artistName
-    playlistName
-    
+    YTMusic.startYTMusic()
+    YTMusic.createPlaylist("Ts works")
