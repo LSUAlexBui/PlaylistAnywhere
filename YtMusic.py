@@ -8,7 +8,6 @@ clientSecret = GOOGLE_CLIENT_SECRET
 oAuth = ytmusicapi.setup_oauth(client_id=clientID,client_secret=clientSecret,filepath="oauth.json",open_browser=True)
 ytmusic = YTMusic("oauth.json",oauth_credentials=OAuthCredentials(client_id=clientID,client_secret=clientSecret))
 
-
 class YoutubeMusic:
     verificationCode = ""
     trackList = [""]
@@ -39,24 +38,39 @@ class YoutubeMusic:
         if to_apple_music == False:
             for i, track in enumerate(playlist['tracks']):
                 YoutubeMusic.trackList.append(track['title'])
-            for artist in track['artists']:
-                YoutubeMusic.artistList.append(artist['name'])
+            for i, artist in enumerate(track['artists']):
+                name = ""
+                if len(name) == 0:
+                    name = artist['name']
+                else:
+                    name = name + ' ' + artist['name']
+                YoutubeMusic.artistList.append(name)
         else:
             for i, track in enumerate(playlist['tracks']):
                 if track['videoType'] == "None":
                     continue
                 else:
                     YoutubeMusic.trackList.append(track['title'])
-                    for artist in track['artists']:
-                        YoutubeMusic.artistList.append(artist['name'])
+                    for i, artist in enumerate(track['artists']):
+                        name = ""
+                        if len(name) == 0:
+                            name = artist['name']
+                        else:
+                            name = name + ' ' + artist['name']
+                YoutubeMusic.artistList.append(name)
         return YoutubeMusic.oldPlaylist            
 
     def createPlaylist(self,playlistData ={}):
         playlistID = YTMusic.create_playlist(title=playlistData['title'],description=['description'],)
         songIDList = []
         for i in range(playlistData['songCount']):
-            search = ytmusic.search(query=playlistData['artists'][i] +" "  + playlistData['tracks'][i],filter="songs",filter= "songs", limit= 1 )
-            artist = search[0]['artists']
+            search = ytmusic.search(query=playlistData['artists'][i] +" "  + playlistData['tracks'][i],filter="songs", limit= 1 )
+            name = ""
+            for i, artist in enumerate(search[0]['artists']):
+                if len(name) == 0:
+                    name = artist['name']
+                else:
+                    name = name + " " + artist['name']
             song = search[0]['title']
             if  artist != playlistData['artist'] and song != playlistData['tracks']:
                 continue
