@@ -8,10 +8,9 @@ clientSecret = GOOGLE_CLIENT_SECRET
 oAuth = ytmusicapi.setup_oauth(client_id=clientID,client_secret=clientSecret,filepath="oauth.json",open_browser=True)
 ytmusic = YTMusic("oauth.json",oauth_credentials=OAuthCredentials(client_id=clientID,client_secret=clientSecret))
 
+
 class YoutubeMusic:
     verificationCode = ""
-    trackList = [""]
-    artistList = [""]
     oldPlaylist = {
         'title': "",
         'coverArt': {
@@ -20,9 +19,8 @@ class YoutubeMusic:
             'width': 1200
         },
         'description': "",
-        'songCount': 0,
-        'tracks': trackList,
-        'artists': artistList,
+        'tracks': [],
+        'artists': [],
     }
     def init(self):
         oAuth = ytmusicapi.setup_oauth(client_id=clientID,client_secret=clientSecret,open_browser=True)
@@ -44,7 +42,7 @@ class YoutubeMusic:
                     name = artist['name']
                 else:
                     name = name + ' ' + artist['name']
-                YoutubeMusic.artistList.append(name)
+                YoutubeMusic.oldPlaylist["artists"].append(name)
         else:
             for i, track in enumerate(playlist['tracks']):
                 if track['videoType'] == "None":
@@ -57,13 +55,13 @@ class YoutubeMusic:
                             name = artist['name']
                         else:
                             name = name + ' ' + artist['name']
-                YoutubeMusic.artistList.append(name)
+                YoutubeMusic.oldPlaylist['tracks'].append(name)
         return YoutubeMusic.oldPlaylist            
 
     def createPlaylist(self,playlistData ={}):
         playlistID = YTMusic.create_playlist(title=playlistData['title'],description=['description'],)
         songIDList = []
-        for i in range(playlistData['songCount']):
+        for i in range(playlistData['tracks']):
             search = ytmusic.search(query=playlistData['artists'][i] +" "  + playlistData['tracks'][i],filter="songs", limit= 1 )
             name = ""
             for i, artist in enumerate(search[0]['artists']):
